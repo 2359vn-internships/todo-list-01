@@ -1,0 +1,11 @@
+.details {
+	height: 100vh;
+	background-color: var(--secondary-color);
+	text-align: center;
+}
+.details-body {
+	padding: 1rem;
+}
+
+.container-btns {
+}

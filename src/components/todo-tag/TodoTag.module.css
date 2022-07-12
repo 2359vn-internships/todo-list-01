@@ -1,0 +1,11 @@
+.todo-tag {
+	text-align: start;
+	border-top: 1px;
+	padding: 0.5rem 2rem;
+	border-top: 1px solid #c4c4c4;
+}
+.container-contents {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
