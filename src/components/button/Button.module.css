@@ -1,0 +1,19 @@
+.btn {
+	padding: 0.5rem 1rem;
+	color: var(--white-color);
+	background-color: var(--save-btn-color);
+	outline: none;
+	border: none;
+	border-radius: 0.5rem;
+	margin: 0.5rem 1rem;
+	cursor: pointer;
+}
+.btn:hover {
+	filter: brightness(1.2);
+}
+.btn:active {
+	filter: brightness(0.8);
+}
+.deleteBtn {
+	background-color: var(--delete-btn-color);
+}
