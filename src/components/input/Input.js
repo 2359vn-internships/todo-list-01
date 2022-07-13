@@ -14,6 +14,8 @@ class Input extends Component {
 				Title:
 			</label>
 			<input
+				// onChange={this.props.onChange}
+				value={this.props.content}
 				name="title-input"
 				className={styles.title}
 				placeholder="Enter title..."
@@ -27,6 +29,8 @@ class Input extends Component {
 					Content:
 				</label>
 				<textarea
+					// onChange={this.props.onChange}
+					value={this.props.content ? this.props.content : null}
 					className={styles.content}
 					placeholder="Add your todo here..."
 				/>

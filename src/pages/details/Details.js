@@ -5,6 +5,7 @@ import styles from "./Details.module.css";
 
 class Details extends Component {
 	render() {
+		const { taskSelected, onSelectedTask, onSave } = this.props;
 		return (
 			<div className={styles.details}>
 				<div className={styles.title}>
@@ -12,10 +13,18 @@ class Details extends Component {
 				</div>
 				<div className={styles.detailsBody}>
 					<form className={styles.form}>
-						<Input isMultipleLines={false} />
-						<Input isMultipleLines={true} />
+						<Input
+							// onChange={this.setTaskState()}
+							content={taskSelected.title}
+							isMultipleLines={false}
+						/>
+						<Input
+							// onChange={this.setTaskState()}
+							content={taskSelected.content}
+							isMultipleLines={true}
+						/>
 						<div className={styles.btnsContainer}>
-							<Button>Save</Button>
+							<Button onClick={onSave}>Save</Button>
 							<Button variant="delete">Delete</Button>
 						</div>
 					</form>

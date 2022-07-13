@@ -1,5 +1,12 @@
-.side-bar {
+.sideBar {
+	position: relative;
 	height: 100vh;
 	background-color: var(--primary-color);
 	text-align: center;
+}
+.createBtn {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }

@@ -1,42 +1,27 @@
 import { Component } from "react";
+import Button from "../../components/button/Button";
 import TodoTag from "../../components/todo-tag/TodoTag";
 import styles from "./SideBar.module.css";
 
 class SideBar extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			tasks: [],
-		};
-	}
-	componentDidMount() {
-		const URL = "http://localhost:3001/tasks";
-		fetch(URL)
-			.then((res) => res.json())
-			.then((data) => {
-				let tasks = data.map((task, index) => {
-					return (
+	render() {
+		const { tasks, taskSelected, onSelectTask } = this.props;
+		return (
+			<div className={styles.sideBar}>
+				<div className={styles.pageTitle}>
+					<h1 className="h1">Todo List</h1>
+					{tasks.map((task, index) => (
 						<TodoTag
 							key={index}
-							title={task.title}
-							content={task.content}
-							timestamp={task.timestamp}
+							task={task}
+							taskSelected={taskSelected}
+							onSelectTask={onSelectTask}
 						/>
-					);
-				});
-				this.setState({ tasks: tasks });
-			});
-	}
-
-	render() {
-		return (
-			<div className={styles["side-bar"]}>
-				<div className={styles["page-title"]}>
-					<h1 className="h1">Todo List</h1>
-					{this.state.tasks}
+					))}
 				</div>
-				<div></div>
+				<div className={styles.createBtn}>
+					<Button>Create a task</Button>
+				</div>
 			</div>
 		);
 	}
