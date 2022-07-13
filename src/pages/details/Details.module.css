@@ -1,11 +1,14 @@
 .details {
-	height: 100vh;
+	height: 100%;
 	background-color: var(--secondary-color);
 	text-align: center;
+	overflow: hidden;
 }
-.details-body {
+.detailsBody {
+	height: 100%;
 	padding: 1rem;
+	position: relative;
 }
-
-.container-btns {
+.form {
+	height: 70%;
 }
