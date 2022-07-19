@@ -4,6 +4,7 @@ import styles from "./TodoTag.module.css";
 class TodoTag extends Component {
 	render() {
 		const { task, taskSelected, onSelectTask } = this.props;
+		var d = new Date(task.timestamp);
 		return (
 			<div
 				className={`${styles.todoTag} ${
@@ -15,10 +16,16 @@ class TodoTag extends Component {
 					})
 				}
 			>
-				<h2 className="h2">{task.title}</h2>
-				<div className={styles.contentsContainer}>
-					<h3 className="h3 regular">{task.timestamp}</h3>
-					<h4 className="extra-light text-gray-color">{task.content}</h4>
+				<div className={styles.header}>
+					<h2 className={`${styles.text} h2`}>{task.title}</h2>
+					<h3 className={`${styles.text} h3 extra-light text-gray-color`}>
+						{d.toLocaleString()}
+					</h3>
+				</div>
+				<div>
+					<h4 className={`${styles.text} extra-light text-gray-color`}>
+						{task.content}
+					</h4>
 				</div>
 			</div>
 		);

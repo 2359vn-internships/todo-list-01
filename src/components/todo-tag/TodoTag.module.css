@@ -5,10 +5,15 @@
 	border-top: 1px solid #c4c4c4;
 	cursor: pointer;
 }
-.contentsContainer {
+.header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+.text {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .todoTag:hover {
 	background-color: var(--selected-color);
