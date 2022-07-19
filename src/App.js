@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { Component } from "react";
 import { deleteApi, getApi, postApi, updateApi } from "./api";
 import "./App.css";
@@ -75,8 +76,8 @@ class App extends Component {
 		const taskSelected = this.state.taskSelected;
 		const tasks = this.state.tasks;
 		return (
-			<div className="homepage">
-				<div className="container-side-bar">
+			<div className={classNames("homepage")}>
+				<div className={classNames("container-side-bar")}>
 					<SideBar
 						tasks={tasks}
 						taskSelected={taskSelected}
@@ -84,7 +85,7 @@ class App extends Component {
 						onCreateTask={this.onCreateTask}
 					/>
 				</div>
-				<div className="container-details">
+				<div className={classNames("container-details")}>
 					<Details
 						onChange={this.onChange.bind(this)}
 						taskSelected={taskSelected}

@@ -17,3 +17,6 @@
 .deleteBtn {
 	background-color: var(--delete-btn-color);
 }
+.disabled {
+	background-color: var(--light-gray-color);
+}

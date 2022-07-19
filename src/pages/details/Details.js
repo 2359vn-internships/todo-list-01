@@ -11,6 +11,7 @@ class Details extends Component {
 	}
 	render() {
 		const { taskSelected, onCreate, onUpdate, onDelete } = this.props;
+
 		return (
 			<div className={styles.details}>
 				<div className={styles.title}>
@@ -31,10 +32,16 @@ class Details extends Component {
 							isMultipleLines={true}
 						/>
 						<div className={styles.btnsContainer}>
-							<Button onClick={taskSelected.id ? onUpdate : onCreate}>
+							<Button
+								onClick={taskSelected.id ? onUpdate : onCreate}
+								disabled={
+									taskSelected.title && taskSelected.content ? false : true
+								}
+							>
 								Save
 							</Button>
 							<Button
+								disabled={taskSelected.id ? false : true}
 								onClick={taskSelected.id ? onDelete : null}
 								variant="delete"
 							>

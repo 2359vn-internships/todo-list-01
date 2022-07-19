@@ -1,9 +1,10 @@
 import { Component } from "react";
 import styles from "./Button.module.css";
+import classNames from "classnames";
 
 class Button extends Component {
 	render() {
-		const { children, href, target, variant, ...props } = this.props;
+		const { children, href, target, variant, disabled, ...props } = this.props;
 
 		if (href) {
 			return (
@@ -11,9 +12,10 @@ class Button extends Component {
 					href={href}
 					target={target || "_self"}
 					role="button"
-					className={`${styles.btn} ${
-						"delete" === variant ? styles.deleteBtn : ""
-					}`}
+					className={classNames(styles.btn, {
+						[styles.deleteBtn]: variant === "delete",
+						[styles.disabled]: disabled,
+					})}
 					{...props}
 				>
 					{children}
@@ -23,9 +25,10 @@ class Button extends Component {
 
 		return (
 			<button
-				className={`${styles.btn} ${
-					"delete" === variant ? styles.deleteBtn : ""
-				}`}
+				className={classNames(styles.btn, {
+					[styles.deleteBtn]: variant === "delete",
+					[styles.disabled]: disabled,
+				})}
 				{...props}
 			>
 				{children}
