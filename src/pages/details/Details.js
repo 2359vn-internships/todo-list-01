@@ -4,8 +4,13 @@ import Button from "../../components/button/Button";
 import styles from "./Details.module.css";
 
 class Details extends Component {
+	onFieldChange(event) {
+		const fieldName = event.target.name;
+		const fieldValue = event.target.value;
+		this.props.onChange(fieldName, fieldValue);
+	}
 	render() {
-		const { taskSelected, onSelectedTask, onSave } = this.props;
+		const { taskSelected, onCreate, onUpdate, onDelete } = this.props;
 		return (
 			<div className={styles.details}>
 				<div className={styles.title}>
@@ -14,18 +19,27 @@ class Details extends Component {
 				<div className={styles.detailsBody}>
 					<form className={styles.form}>
 						<Input
-							// onChange={this.setTaskState()}
+							onChange={this.onFieldChange.bind(this)}
 							content={taskSelected.title}
+							name="title"
 							isMultipleLines={false}
 						/>
 						<Input
-							// onChange={this.setTaskState()}
+							onChange={this.onFieldChange.bind(this)}
 							content={taskSelected.content}
+							name="content"
 							isMultipleLines={true}
 						/>
 						<div className={styles.btnsContainer}>
-							<Button onClick={onSave}>Save</Button>
-							<Button variant="delete">Delete</Button>
+							<Button onClick={taskSelected.id ? onUpdate : onCreate}>
+								Save
+							</Button>
+							<Button
+								onClick={taskSelected.id ? onDelete : null}
+								variant="delete"
+							>
+								Delete
+							</Button>
 						</div>
 					</form>
 				</div>

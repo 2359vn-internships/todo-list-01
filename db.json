@@ -1,34 +1,10 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "title": "Satheesh",
-      "content": "Sat@mail.com",
-      "timestamp": "South street"
-    },
-    {
-      "id": 2,
-      "title": "John",
-      "content": "john@mail.com",
-      "timestamp": "North street"
-    },
-    {
-      "id": 3,
-      "title": "Robert",
-      "content": "robert@mail.com",
-      "timestamp": "East street"
-    },
-    {
-      "id": 4,
-      "title": "Mani",
-      "content": "mani@mail.com",
-      "timestamp": "West street"
-    },
-    {
-      "id": 10,
-      "title": "Test post",
-      "content": "Testposthahaha",
-      "timestamp": "124324"
+      "id": 7610,
+      "title": "phuc",
+      "content": "phuc test content",
+      "timestamp": 1658217567610
     }
   ]
 }

@@ -10,9 +10,9 @@ class App extends Component {
 		this.state = {
 			tasks: [],
 			taskSelected: {
-				id: "10",
-				title: "Test post",
-				content: "Testposthahaha",
+				id: "",
+				title: "",
+				content: "",
 				timestamp: "",
 			},
 		};
@@ -26,10 +26,29 @@ class App extends Component {
 			},
 			body: JSON.stringify({
 				...this.state.taskSelected,
-				timestamp: milisecNow % 10000,
+				id: milisecNow % 10000,
+				timestamp: milisecNow,
 			}),
 		};
 		fetch(`${process.env.REACT_APP_LOCALHOST_URL}/tasks`, requestOptions)
+			.then((res) => res.json())
+			.then((data) => this.setState({ tasks: data }));
+	};
+	updateTask = () => {
+		console.log("updated");
+		const requestOptions = {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				...this.state.taskSelected,
+			}),
+		};
+		fetch(
+			`${process.env.REACT_APP_LOCALHOST_URL}/tasks/${this.state.taskSelected.id}`,
+			requestOptions
+		)
 			.then((res) => res.json())
 			.then((data) => this.setState({ tasks: data }));
 	};
@@ -41,6 +60,20 @@ class App extends Component {
 				this.setState({ tasks: data });
 			});
 	};
+	deleteTask = () => {
+		const requestOptions = {
+			method: "DELETE",
+		};
+		fetch(
+			`${process.env.REACT_APP_LOCALHOST_URL}/tasks/${this.state.taskSelected.id}`,
+			requestOptions
+		);
+		this.setState({
+			tasks: this.state.tasks.filter(
+				(task) => task.id !== this.state.taskSelected.id
+			),
+		});
+	};
 	handleSelectTask = (task) => {
 		this.setState({
 			taskSelected: task,
@@ -49,10 +82,25 @@ class App extends Component {
 	componentDidMount() {
 		this.getTasks();
 	}
-	setTaskState(event) {
-		var field = event.target.name;
-		var value = event.target.value;
+	onChange(field, value) {
+		this.setState({
+			taskSelected: {
+				...this.state.taskSelected,
+				[field]: value,
+			},
+		});
 	}
+	onCreateTask = () => {
+		this.setState({
+			taskSelected: {
+				id: "",
+				title: "",
+				content: "",
+				timestamp: "",
+			},
+		});
+		console.log(this.state.taskSelected);
+	};
 	render() {
 		const taskSelected = this.state.taskSelected;
 		const tasks = this.state.tasks;
@@ -63,13 +111,17 @@ class App extends Component {
 						tasks={tasks}
 						taskSelected={taskSelected}
 						onSelectTask={this.handleSelectTask}
+						onCreateTask={this.onCreateTask}
 					/>
 				</div>
 				<div className="container-details">
 					<Details
+						onChange={this.onChange.bind(this)}
 						taskSelected={taskSelected}
 						onSelectTask={this.handleSelectTask}
-						onSave={this.createTask}
+						onCreate={this.createTask}
+						onUpdate={this.updateTask}
+						onDelete={this.deleteTask}
 					/>
 				</div>
 			</div>
