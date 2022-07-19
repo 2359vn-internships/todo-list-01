@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { deleteApi, getApi, postApi, updateApi } from "./api";
 import "./App.css";
 import Details from "./pages/details/Details";
 import SideBar from "./pages/side-bar/SideBar";
@@ -19,55 +20,25 @@ class App extends Component {
 	}
 	createTask = () => {
 		const milisecNow = Date.now();
-		const requestOptions = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				...this.state.taskSelected,
-				id: milisecNow % 10000,
-				timestamp: milisecNow,
-			}),
+		const reqBody = {
+			...this.state.taskSelected,
+			id: milisecNow % 10000,
+			timestamp: milisecNow,
 		};
-		fetch(`${process.env.REACT_APP_LOCALHOST_URL}/tasks`, requestOptions)
-			.then((res) => res.json())
-			.then((data) => this.setState({ tasks: data }));
+		postApi(reqBody).then((data) => this.setState({ tasks: data }));
 	};
 	updateTask = () => {
-		console.log("updated");
-		const requestOptions = {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				...this.state.taskSelected,
-			}),
-		};
-		fetch(
-			`${process.env.REACT_APP_LOCALHOST_URL}/tasks/${this.state.taskSelected.id}`,
-			requestOptions
-		)
-			.then((res) => res.json())
-			.then((data) => this.setState({ tasks: data }));
+		updateApi(this.state.taskSelected, this.state.taskSelected.id).then(
+			(data) => this.setState({ tasks: data })
+		);
 	};
 	getTasks = () => {
-		const URL = `${process.env.REACT_APP_LOCALHOST_URL}/tasks`;
-		fetch(URL)
-			.then((res) => res.json())
-			.then((data) => {
-				this.setState({ tasks: data });
-			});
+		getApi().then((data) => {
+			this.setState({ tasks: data });
+		});
 	};
 	deleteTask = () => {
-		const requestOptions = {
-			method: "DELETE",
-		};
-		fetch(
-			`${process.env.REACT_APP_LOCALHOST_URL}/tasks/${this.state.taskSelected.id}`,
-			requestOptions
-		);
+		deleteApi(this.state.taskSelected.id);
 		this.setState({
 			tasks: this.state.tasks.filter(
 				(task) => task.id !== this.state.taskSelected.id
@@ -99,7 +70,6 @@ class App extends Component {
 				timestamp: "",
 			},
 		});
-		console.log(this.state.taskSelected);
 	};
 	render() {
 		const taskSelected = this.state.taskSelected;
