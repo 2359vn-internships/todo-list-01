@@ -3,10 +3,11 @@
 	height: 100vh;
 	background-color: var(--primary-color);
 	text-align: center;
+	padding-bottom: 3rem;
+	overflow: auto;
 }
 .createBtn {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
-	left: 0;
-	right: 0;
+	left: 5rem;
 }

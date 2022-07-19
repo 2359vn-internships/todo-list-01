@@ -5,7 +5,7 @@ import styles from "./SideBar.module.css";
 
 class SideBar extends Component {
 	render() {
-		const { tasks, taskSelected, onSelectTask } = this.props;
+		const { tasks, taskSelected, onSelectTask, onCreateTask } = this.props;
 		return (
 			<div className={styles.sideBar}>
 				<div className={styles.pageTitle}>
@@ -18,9 +18,9 @@ class SideBar extends Component {
 							onSelectTask={onSelectTask}
 						/>
 					))}
-				</div>
-				<div className={styles.createBtn}>
-					<Button>Create a task</Button>
+					<div className={styles.createBtn}>
+						<Button onClick={onCreateTask}>Create a task</Button>
+					</div>
 				</div>
 			</div>
 		);
