@@ -1,39 +1,42 @@
-import classNames from "classnames";
 import { Component } from "react";
 import styles from "./Input.module.css";
 
 class Input extends Component {
 	render() {
 		if (this.props.isMultipleLines) {
-			return this.renderTextArea();
+			return this._renderTextArea();
 		}
-		return this.renderInput();
+		return this._renderInput();
 	}
-	renderInput = () => (
-		<div className={styles.titleContainer}>
-			<label className="" htmlFor={this.props.name}>
-				Title:
-			</label>
-			<input
-				onChange={this.props.onChange}
-				defaultValue={this.props.content}
-				name={this.props.name}
-				className={classNames(styles.title)}
-				placeholder="Enter title..."
-			/>
-		</div>
-	);
-	renderTextArea = () => {
+	_renderInput = () => {
+		const { name, onChange, content } = this.props;
+		return (
+			<div className={styles.titleContainer}>
+				<label className="" htmlFor={name}>
+					Title:
+				</label>
+				<input
+					onChange={onChange}
+					defaultValue={content}
+					name={name}
+					className={styles.title}
+					placeholder="Enter title..."
+				/>
+			</div>
+		);
+	};
+	_renderTextArea = () => {
+		const { name, onChange, content } = this.props;
 		return (
 			<div className={styles.contentContainer}>
-				<label className="" htmlFor={this.props.name}>
+				<label className="" htmlFor={name}>
 					Content:
 				</label>
 				<textarea
-					onChange={this.props.onChange}
-					name={this.props.name}
-					defaultValue={this.props.content}
-					className={classNames(styles.content)}
+					onChange={onChange}
+					name={name}
+					defaultValue={content}
+					className={styles.content}
 					placeholder="Add your todo here..."
 				/>
 			</div>

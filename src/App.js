@@ -1,6 +1,5 @@
-import classNames from "classnames";
 import { Component } from "react";
-import { deleteApi, getApi, postApi, updateApi } from "./api";
+import { deleteTask, getTasks, postTask, updateTask } from "./api";
 import "./App.css";
 import Details from "./pages/details/Details";
 import SideBar from "./pages/side-bar/SideBar";
@@ -19,50 +18,78 @@ class App extends Component {
 			},
 		};
 	}
-	createTask = () => {
+	componentDidMount() {
+		this.getTasks();
+	}
+	render() {
+		const { taskSelected, tasks } = this.state;
+		return (
+			<div className="homepage">
+				<div className="container-side-bar">
+					<SideBar
+						tasks={tasks}
+						taskSelected={taskSelected}
+						onSelectTask={this._handleSelectTask}
+						onCreateTask={this._onCreateTask}
+					/>
+				</div>
+				<div className="container-details">
+					<Details
+						taskSelected={taskSelected}
+						onSelectTask={this._handleSelectTask}
+						onChange={this._onChange}
+						onCreate={this._createTask}
+						onUpdate={this._updateTask}
+						onDelete={this._deleteTask}
+					/>
+				</div>
+			</div>
+		);
+	}
+	_createTask = () => {
+		const { taskSelected } = this.state;
 		const milisecNow = Date.now();
 		const reqBody = {
-			...this.state.taskSelected,
+			...taskSelected,
 			id: milisecNow % 10000,
 			timestamp: milisecNow,
 		};
-		postApi(reqBody).then((data) => this.setState({ tasks: data }));
+		postTask(reqBody).then((data) => this.setState({ tasks: data }));
 	};
-	updateTask = () => {
-		updateApi(this.state.taskSelected, this.state.taskSelected.id).then(
-			(data) => this.setState({ tasks: data })
+	_updateTask = () => {
+		const { taskSelected } = this.state;
+		updateTask(taskSelected, taskSelected.id).then((data) =>
+			this.setState({ tasks: data })
 		);
 	};
 	getTasks = () => {
-		getApi().then((data) => {
+		getTasks().then((data) => {
 			this.setState({ tasks: data });
 		});
 	};
-	deleteTask = () => {
-		deleteApi(this.state.taskSelected.id);
-		this.setState({
-			tasks: this.state.tasks.filter(
-				(task) => task.id !== this.state.taskSelected.id
-			),
+	_deleteTask = () => {
+		const { taskSelected, tasks } = this.state;
+		deleteTask(taskSelected.id).then((data) => {
+			this.setState({
+				tasks: tasks.filter((task) => task.id !== taskSelected.id),
+			});
 		});
 	};
-	handleSelectTask = (task) => {
+	_handleSelectTask = (task) => {
 		this.setState({
 			taskSelected: task,
 		});
 	};
-	componentDidMount() {
-		this.getTasks();
-	}
-	onChange(field, value) {
+	_onChange = (field, value) => {
+		const { taskSelected } = this.state;
 		this.setState({
 			taskSelected: {
-				...this.state.taskSelected,
+				...taskSelected,
 				[field]: value,
 			},
 		});
-	}
-	onCreateTask = () => {
+	};
+	_onCreateTask = () => {
 		this.setState({
 			taskSelected: {
 				id: "",
@@ -72,32 +99,6 @@ class App extends Component {
 			},
 		});
 	};
-	render() {
-		const taskSelected = this.state.taskSelected;
-		const tasks = this.state.tasks;
-		return (
-			<div className={classNames("homepage")}>
-				<div className={classNames("container-side-bar")}>
-					<SideBar
-						tasks={tasks}
-						taskSelected={taskSelected}
-						onSelectTask={this.handleSelectTask}
-						onCreateTask={this.onCreateTask}
-					/>
-				</div>
-				<div className={classNames("container-details")}>
-					<Details
-						onChange={this.onChange.bind(this)}
-						taskSelected={taskSelected}
-						onSelectTask={this.handleSelectTask}
-						onCreate={this.createTask}
-						onUpdate={this.updateTask}
-						onDelete={this.deleteTask}
-					/>
-				</div>
-			</div>
-		);
-	}
 }
 
 export default App;

@@ -4,11 +4,6 @@ import Button from "../../components/button/Button";
 import styles from "./Details.module.css";
 
 class Details extends Component {
-	onFieldChange(event) {
-		const fieldName = event.target.name;
-		const fieldValue = event.target.value;
-		this.props.onChange(fieldName, fieldValue);
-	}
 	render() {
 		const { taskSelected, onCreate, onUpdate, onDelete } = this.props;
 
@@ -20,13 +15,13 @@ class Details extends Component {
 				<div className={styles.detailsBody}>
 					<form className={styles.form}>
 						<Input
-							onChange={this.onFieldChange.bind(this)}
+							onChange={this._onFieldChange}
 							content={taskSelected.title}
 							name="title"
 							isMultipleLines={false}
 						/>
 						<Input
-							onChange={this.onFieldChange.bind(this)}
+							onChange={this._onFieldChange}
 							content={taskSelected.content}
 							name="content"
 							isMultipleLines={true}
@@ -53,5 +48,10 @@ class Details extends Component {
 			</div>
 		);
 	}
+	_onFieldChange = (event) => {
+		const fieldName = event.target.name;
+		const fieldValue = event.target.value;
+		this.props.onChange(fieldName, fieldValue);
+	};
 }
 export default Details;

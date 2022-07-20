@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { Component } from "react";
 import Button from "../../components/button/Button";
 import TodoTag from "../../components/todo-tag/TodoTag";
@@ -8,9 +7,9 @@ class SideBar extends Component {
 	render() {
 		const { tasks, taskSelected, onSelectTask, onCreateTask } = this.props;
 		return (
-			<div className={classNames(styles.sideBar)}>
-				<div className={classNames(styles.pageTitle)}>
-					<h1 className={classNames("h1")}>Todo List</h1>
+			<div className={styles.sideBar}>
+				<div className={styles.pageTitle}>
+					<h1 className="h1">Todo List</h1>
 					{tasks.map((task, index) => (
 						<TodoTag
 							key={index}
@@ -19,7 +18,7 @@ class SideBar extends Component {
 							onSelectTask={onSelectTask}
 						/>
 					))}
-					<div className={classNames(styles.createBtn)}>
+					<div className={styles.createBtn}>
 						<Button onClick={onCreateTask}>Create a task</Button>
 					</div>
 				</div>

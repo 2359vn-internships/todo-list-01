@@ -1,4 +1,4 @@
-const postApi = (reqBody) => {
+const postTask = (reqBody) => {
 	const requestOptions = {
 		method: "POST",
 		headers: {
@@ -13,7 +13,7 @@ const postApi = (reqBody) => {
 		requestOptions
 	).then((res) => res.json());
 };
-const updateApi = (reqBody, taskId) => {
+const updateTask = (reqBody, taskId) => {
 	const requestOptions = {
 		method: "PUT",
 		headers: {
@@ -28,18 +28,18 @@ const updateApi = (reqBody, taskId) => {
 		requestOptions
 	).then((res) => res.json());
 };
-const deleteApi = (taskId) => {
+const deleteTask = (taskId) => {
 	const requestOptions = {
 		method: "DELETE",
 	};
 	return fetch(
 		`${process.env.REACT_APP_LOCALHOST_URL}/tasks/${taskId}`,
 		requestOptions
-	);
+	).then((res) => res.json());
 };
-const getApi = () => {
+const getTasks = () => {
 	const URL = `${process.env.REACT_APP_LOCALHOST_URL}/tasks`;
 	return fetch(URL).then((res) => res.json());
 };
 
-export { postApi, updateApi, deleteApi, getApi };
+export { postTask, updateTask, deleteTask, getTasks };

@@ -5,7 +5,7 @@ import styles from "./TodoTag.module.css";
 class TodoTag extends Component {
 	render() {
 		const { task, taskSelected, onSelectTask } = this.props;
-		var d = new Date(task.timestamp);
+		const date = new Date(task.timestamp);
 		return (
 			<div
 				className={classNames(styles.todoTag, {
@@ -27,7 +27,7 @@ class TodoTag extends Component {
 							"text-gray-color"
 						)}
 					>
-						{d.toLocaleString()}
+						{date.toLocaleString()}
 					</h3>
 				</div>
 				<div>
