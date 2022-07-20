@@ -2,6 +2,7 @@ import { Component } from "react";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import styles from "./Details.module.css";
+import Counter from "../../features/counter";
 
 class Details extends Component {
 	render() {
@@ -12,6 +13,7 @@ class Details extends Component {
 				<div className={styles.title}>
 					<h1 className="h1">Details</h1>
 				</div>
+				<Counter />
 				<div className={styles.detailsBody}>
 					<form className={styles.form}>
 						<Input
