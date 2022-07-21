@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { connect } from "react-redux";
 import Button from "../../components/button/Button";
 import TodoTag from "../../components/todo-tag/TodoTag";
 import styles from "./SideBar.module.css";
@@ -26,5 +27,8 @@ class SideBar extends Component {
 		);
 	}
 }
+const mapStateToProps = (state) => ({
+	tasks: state.todo.tasks,
+});
 
-export default SideBar;
+export default connect(mapStateToProps)(SideBar);

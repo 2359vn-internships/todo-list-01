@@ -1,5 +1,7 @@
 import { Component } from "react";
-import { deleteTask, getTasks, postTask, updateTask } from "./api";
+import { connect } from "react-redux";
+import { deleteTask, getAllTasks, postTask, updateTask } from "./api";
+import { getTasks } from "./redux/todoSlice";
 import "./App.css";
 import Details from "./pages/details/Details";
 import SideBar from "./pages/side-bar/SideBar";
@@ -19,7 +21,7 @@ class App extends Component {
 		};
 	}
 	componentDidMount() {
-		this.getTasks();
+		this._getAllTasks();
 	}
 	render() {
 		const { taskSelected, tasks } = this.state;
@@ -54,18 +56,16 @@ class App extends Component {
 			id: milisecNow % 10000,
 			timestamp: milisecNow,
 		};
-		postTask(reqBody).then((data) => this.setState({ tasks: data }));
+		postTask(reqBody).then((data) => console.log(data));
 	};
 	_updateTask = () => {
 		const { taskSelected } = this.state;
 		updateTask(taskSelected, taskSelected.id).then((data) =>
-			this.setState({ tasks: data })
+			this.props.dispatch(updateTask(data))
 		);
 	};
-	getTasks = () => {
-		getTasks().then((data) => {
-			this.setState({ tasks: data });
-		});
+	_getAllTasks = () => {
+		getAllTasks().then((data) => this.props.dispatch(getTasks(data)));
 	};
 	_deleteTask = () => {
 		const { taskSelected, tasks } = this.state;
@@ -100,5 +100,8 @@ class App extends Component {
 		});
 	};
 }
+const mapStateToProps = (state) => ({
+	tasks: state.todo.tasks,
+});
 
-export default App;
+export default connect(mapStateToProps)(App);

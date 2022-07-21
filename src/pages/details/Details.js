@@ -2,18 +2,16 @@ import { Component } from "react";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import styles from "./Details.module.css";
-import Counter from "../../features/counter";
 
 class Details extends Component {
 	render() {
-		const { taskSelected, onCreate, onUpdate, onDelete } = this.props;
-
+		const { taskSelected, onDelete } = this.props;
+		const isValid = taskSelected.title && taskSelected.content;
 		return (
 			<div className={styles.details}>
 				<div className={styles.title}>
 					<h1 className="h1">Details</h1>
 				</div>
-				<Counter />
 				<div className={styles.detailsBody}>
 					<form className={styles.form}>
 						<Input
@@ -30,10 +28,8 @@ class Details extends Component {
 						/>
 						<div className={styles.btnsContainer}>
 							<Button
-								onClick={taskSelected.id ? onUpdate : onCreate}
-								disabled={
-									taskSelected.title && taskSelected.content ? false : true
-								}
+								onClick={isValid ? this._handleSubmit : null}
+								disabled={isValid ? false : true}
 							>
 								Save
 							</Button>
@@ -50,6 +46,16 @@ class Details extends Component {
 			</div>
 		);
 	}
+	_handleSubmit = () => {
+		const { taskSelected, onCreate, onUpdate } = this.props;
+		console.log("submit");
+		if (taskSelected.id) {
+			return onUpdate;
+		} else {
+			console.log("oncreate");
+			return onCreate;
+		}
+	};
 	_onFieldChange = (event) => {
 		const fieldName = event.target.name;
 		const fieldValue = event.target.value;

@@ -37,9 +37,9 @@ const deleteTask = (taskId) => {
 		requestOptions
 	).then((res) => res.json());
 };
-const getTasks = () => {
+const getAllTasks = () => {
 	const URL = `${process.env.REACT_APP_LOCALHOST_URL}/tasks`;
 	return fetch(URL).then((res) => res.json());
 };
 
-export { postTask, updateTask, deleteTask, getTasks };
+export { postTask, updateTask, deleteTask, getAllTasks };
