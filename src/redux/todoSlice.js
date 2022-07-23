@@ -2,25 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	tasks: [],
-	selectedTask: {
-		id: "",
-		title: "",
-		content: "",
-		timestamp: "",
-	},
 };
 
 export const todoSlice = createSlice({
 	name: "todo",
 	initialState,
 	reducers: {
-		getTasks: (state, action) => {
+		getTasksSuccess: (state, action) => {
 			state.tasks = [...action.payload];
 		},
-		addTask: (state, action) => {
+		addTaskSuccess: (state, action) => {
 			state.tasks.push(action.payload);
 		},
-		updateTask: (state, action) => {
+		updateTaskSuccess: (state, action) => {
 			let currentTask = state.tasks.find(
 				(task) => task.id === action.payload.id
 			);
@@ -28,10 +22,17 @@ export const todoSlice = createSlice({
 				currentTask = action.payload;
 			}
 		},
+		deleteTaskSuccess: (state, action) => {
+			state.tasks.filter((task) => task.id !== action.payload);
+		},
 	},
 });
 
-export const { increment, decrement, incrementByAmount, getTasks } =
-	todoSlice.actions;
+export const {
+	getTasksSuccess,
+	addTaskSuccess,
+	updateTaskSuccess,
+	deleteTaskSuccess,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
