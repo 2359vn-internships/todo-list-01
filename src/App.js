@@ -1,7 +1,12 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { deleteTask, getAllTasks, postTask, updateTask } from "./api";
-import { getTasks } from "./redux/todoSlice";
+import {
+	addTaskSuccess,
+	deleteTaskSuccess,
+	getTasksSuccess,
+	updateTaskSuccess,
+} from "./redux/todoSlice";
 import "./App.css";
 import Details from "./pages/details/Details";
 import SideBar from "./pages/side-bar/SideBar";
@@ -11,7 +16,6 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			tasks: [],
 			taskSelected: {
 				id: "",
 				title: "",
@@ -24,12 +28,11 @@ class App extends Component {
 		this._getAllTasks();
 	}
 	render() {
-		const { taskSelected, tasks } = this.state;
+		const { taskSelected } = this.state;
 		return (
 			<div className="homepage">
 				<div className="container-side-bar">
 					<SideBar
-						tasks={tasks}
 						taskSelected={taskSelected}
 						onSelectTask={this._handleSelectTask}
 						onCreateTask={this._onCreateTask}
@@ -56,23 +59,23 @@ class App extends Component {
 			id: milisecNow % 10000,
 			timestamp: milisecNow,
 		};
-		postTask(reqBody).then((data) => console.log(data));
+		postTask(reqBody).then((data) =>
+			this.props.dispatch(addTaskSuccess(reqBody))
+		);
 	};
 	_updateTask = () => {
 		const { taskSelected } = this.state;
-		updateTask(taskSelected, taskSelected.id).then((data) =>
-			this.props.dispatch(updateTask(data))
-		);
+		updateTask(taskSelected, taskSelected.id).then((data) => {
+			this.props.dispatch(updateTaskSuccess(taskSelected));
+		});
 	};
 	_getAllTasks = () => {
-		getAllTasks().then((data) => this.props.dispatch(getTasks(data)));
+		getAllTasks().then((data) => this.props.dispatch(getTasksSuccess(data)));
 	};
 	_deleteTask = () => {
-		const { taskSelected, tasks } = this.state;
+		const { taskSelected } = this.state;
 		deleteTask(taskSelected.id).then((data) => {
-			this.setState({
-				tasks: tasks.filter((task) => task.id !== taskSelected.id),
-			});
+			this.props.dispatch(deleteTaskSuccess(taskSelected.id));
 		});
 	};
 	_handleSelectTask = (task) => {

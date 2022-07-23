@@ -5,7 +5,7 @@ import styles from "./Details.module.css";
 
 class Details extends Component {
 	render() {
-		const { taskSelected, onDelete } = this.props;
+		const { taskSelected, onDelete, onUpdate, onCreate } = this.props;
 		const isValid = taskSelected.title && taskSelected.content;
 		return (
 			<div className={styles.details}>
@@ -28,7 +28,7 @@ class Details extends Component {
 						/>
 						<div className={styles.btnsContainer}>
 							<Button
-								onClick={isValid ? this._handleSubmit : null}
+								onClick={taskSelected.id ? onUpdate : onCreate}
 								disabled={isValid ? false : true}
 							>
 								Save
@@ -46,16 +46,6 @@ class Details extends Component {
 			</div>
 		);
 	}
-	_handleSubmit = () => {
-		const { taskSelected, onCreate, onUpdate } = this.props;
-		console.log("submit");
-		if (taskSelected.id) {
-			return onUpdate;
-		} else {
-			console.log("oncreate");
-			return onCreate;
-		}
-	};
 	_onFieldChange = (event) => {
 		const fieldName = event.target.name;
 		const fieldValue = event.target.value;
