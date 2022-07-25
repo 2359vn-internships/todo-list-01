@@ -1,4 +1,4 @@
-const postTask = (reqBody) => {
+const postTask = async (reqBody) => {
 	const requestOptions = {
 		method: "POST",
 		headers: {
@@ -8,12 +8,13 @@ const postTask = (reqBody) => {
 			...reqBody,
 		}),
 	};
-	return fetch(
+	const res = await fetch(
 		`${process.env.REACT_APP_LOCALHOST_URL}/tasks`,
 		requestOptions
-	).then((res) => res.json());
+	);
+	return await res.json();
 };
-const updateTask = (reqBody, taskId) => {
+const updateTask = async (reqBody, taskId) => {
 	const requestOptions = {
 		method: "PUT",
 		headers: {
@@ -23,23 +24,26 @@ const updateTask = (reqBody, taskId) => {
 			...reqBody,
 		}),
 	};
-	return fetch(
+	const res = await fetch(
 		`${process.env.REACT_APP_LOCALHOST_URL}/tasks/${taskId}`,
 		requestOptions
-	).then((res) => res.json());
+	);
+	return await res.json();
 };
-const deleteTask = (taskId) => {
+const deleteTask = async (taskId) => {
 	const requestOptions = {
 		method: "DELETE",
 	};
-	return fetch(
+	const res = await fetch(
 		`${process.env.REACT_APP_LOCALHOST_URL}/tasks/${taskId}`,
 		requestOptions
-	).then((res) => res.json());
+	);
+	return await res.json();
 };
-const getAllTasks = () => {
+const getAllTasks = async () => {
 	const URL = `${process.env.REACT_APP_LOCALHOST_URL}/tasks`;
-	return fetch(URL).then((res) => res.json());
+	const res = await fetch(URL);
+	return await res.json();
 };
 
 export { postTask, updateTask, deleteTask, getAllTasks };
