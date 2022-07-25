@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Button from "../../components/button/Button";
 import TodoTag from "../../components/todo-tag/TodoTag";
 import styles from "./SideBar.module.css";
+import { Translation } from "react-i18next";
 
 class SideBar extends Component {
 	render() {
@@ -10,7 +11,11 @@ class SideBar extends Component {
 		return (
 			<div className={styles.sideBar}>
 				<div className={styles.pageTitle}>
-					<h1 className="h1">Todo List</h1>
+					<Translation ns="common">
+						{
+							(t) => <h1 className="h1">{t("header.sidebar")}</h1> // will be looked up from namespace ns1
+						}
+					</Translation>
 					{tasks.map((task, index) => (
 						<TodoTag
 							key={index}
@@ -20,7 +25,11 @@ class SideBar extends Component {
 						/>
 					))}
 					<div className={styles.createBtn}>
-						<Button onClick={onCreateTask}>Create a task</Button>
+						<Translation ns="common">
+							{(t) => (
+								<Button onClick={onCreateTask}>{t("button.create")}</Button>
+							)}
+						</Translation>
 					</div>
 				</div>
 			</div>
