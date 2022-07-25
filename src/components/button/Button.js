@@ -12,6 +12,7 @@ class Button extends Component {
 					href={href}
 					target={target || "_self"}
 					role="button"
+					disabled={disabled}
 					className={classNames(styles.btn, {
 						[styles.deleteBtn]: variant === "delete",
 						[styles.disabled]: disabled,
@@ -25,6 +26,7 @@ class Button extends Component {
 
 		return (
 			<button
+				disabled={disabled}
 				className={classNames(styles.btn, {
 					[styles.deleteBtn]: variant === "delete",
 					[styles.disabled]: disabled,
