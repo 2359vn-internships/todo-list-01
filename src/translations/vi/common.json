@@ -1,0 +1,11 @@
+{
+    "header": {
+        "sidebar": "Việc cần làm",
+        "details": "Chi tiết"
+    },
+    "button": {
+        "save": "Lưu",
+        "delete": "Xoá",
+        "create": "Tạo mới"
+    }
+}

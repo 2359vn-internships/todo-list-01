@@ -1,0 +1,11 @@
+{
+    "header": {
+        "sidebar": "Todo List",
+        "details": "Details"
+    },
+    "button": {
+        "save": "Save",
+        "delete": "Delete",
+        "create": "Create a task"
+    }
+}
